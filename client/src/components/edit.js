@@ -4,9 +4,9 @@ import { useParams, useNavigate } from "react-router";
 export default function Edit() {
   const [form, setForm] = useState({
     name: "",
-    position: "",
-    level: "",
-    records: [],
+    address: "",
+    category: "",
+    business_details: [],
   });
   const params = useParams();
   const navigate = useNavigate();
@@ -50,11 +50,12 @@ export default function Edit() {
     e.preventDefault();
     const editedPerson = {
       name: form.name,
-      position: form.position,
-      level: form.level,
+      address: form.address,
+      category: form.category,
+      business_details: form.business_details,
     };
 
-    // This will send a post request to update the data in the database.
+    // sends a post request to update the data in the database.
     await fetch(`http://localhost:3000/update/${params.id}`, {
       method: "POST",
       body: JSON.stringify(editedPerson),
@@ -66,7 +67,7 @@ export default function Edit() {
     navigate("/");
   }
 
-  // This following section will display the form that takes input from the user to update the data.
+  // displays the form that takes input from the user to update the data.
   return (
     <div>
       <h3>Update Record</h3>
@@ -82,13 +83,33 @@ export default function Edit() {
           />
         </div>
         <div className="form-group">
-          <label htmlFor="position">Position: </label>
+          <label htmlFor="position">Address: </label>
           <input
             type="text"
             className="form-control"
-            id="position"
-            value={form.position}
-            onChange={(e) => updateForm({ position: e.target.value })}
+            id="address"
+            value={form.address}
+            onChange={(e) => updateForm({ address: e.target.value })}
+          />
+        </div>
+        <div className="form-group">
+          <label htmlFor="position">Category: </label>
+          <input
+            type="text"
+            className="form-control"
+            id="category"
+            value={form.category}
+            onChange={(e) => updateForm({ category: e.target.value })}
+          />
+        </div>
+        <div className="form-group">
+          <label htmlFor="position">Business Details: </label>
+          <input
+            type="text"
+            className="form-control"
+            id="business_details"
+            value={form.business_details}
+            onChange={(e) => updateForm({ business_details: e.target.value })}
           />
         </div>
         <div className="form-group"></div>

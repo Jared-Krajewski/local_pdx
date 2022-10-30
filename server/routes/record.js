@@ -1,17 +1,16 @@
 const express = require("express");
 
 // recordRoutes is an instance of the express router.
-// We use it to define our routes.
-// The router will be added as a middleware and will take control of requests starting with path /record.
+// router will be added as a middleware and will take control of requests starting with path /record.
 const recordRoutes = express.Router();
 
-// This will help us connect to the database
+// connects to the database
 const dbo = require("../db/conn");
 
-// This help convert the id from string to ObjectId for the _id.
+// converts the id from string to ObjectId for the _id.
 const ObjectId = require("mongodb").ObjectId;
 
-// This section will help you get a list of all the records.
+// gets a list of all the records.
 recordRoutes.route("/record").get(function (req, res) {
   let db_connect = dbo.getDb("local_pdx");
   db_connect
@@ -23,7 +22,7 @@ recordRoutes.route("/record").get(function (req, res) {
     });
 });
 
-// This section will help you get a single record by id
+// gets a single record by id
 recordRoutes.route("/record/:id").get(function (req, res) {
   let db_connect = dbo.getDb();
   let myquery = { _id: ObjectId(req.params.id) };
@@ -35,7 +34,7 @@ recordRoutes.route("/record/:id").get(function (req, res) {
     });
 });
 
-// This section will help you create a new record.
+// creates a new record.
 recordRoutes.route("/record/add").post(function (req, response) {
   let db_connect = dbo.getDb();
   let business = {
@@ -43,19 +42,19 @@ recordRoutes.route("/record/add").post(function (req, response) {
     address: req.body.address,
     category: req.body.category,
     business_details: req.body.business_details,
-    //   “address” :{
-    //     “street1” : “string”,
-    //     “street2” : “string”,
-    //     “zip” : “int”,
-    //     “city” : “string”,   // write filter by zips
-    //     “neighborhood” : “string”,
-    //     “state”: “string”,
-    //     “modified”: {
-    //     “localpdx”: "boolean",
-    //     “user_name”: “string”,
-    //     “date”: “date”
-    //   }
-    // {
+    // addressTest: {
+    //   street1: req.body.addressTest.street1,
+    //   //   “street2” : “string”,
+    //   //   “zip” : “int”,
+    //   //   “city” : “string”,   // write filter by zips
+    //   //   “neighborhood” : “string”,
+    //   //   “state”: “string”,
+    //   //   “modified”: {
+    //   //   “localpdx”: "boolean",
+    //   //   “user_name”: “string”,
+    //   //   “date”: “date”
+    //   // }
+    // },
     //   “internal_id”: number,
     //   "name" : "string",
     //   "category" : {
@@ -173,7 +172,7 @@ recordRoutes.route("/record/add").post(function (req, response) {
     });
 });
 
-// This section will help you update a record by id.
+// updates a record by id.
 recordRoutes.route("/update/:id").post(function (req, response) {
   let db_connect = dbo.getDb();
   let myquery = { _id: ObjectId(req.params.id) };
@@ -193,7 +192,7 @@ recordRoutes.route("/update/:id").post(function (req, response) {
     });
 });
 
-// This section will help you delete a record
+// deletes a record
 recordRoutes.route("/:id").delete((req, response) => {
   let db_connect = dbo.getDb();
   let myquery = { _id: ObjectId(req.params.id) };

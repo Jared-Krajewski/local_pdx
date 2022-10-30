@@ -22,20 +22,25 @@ export default function Create() {
     e.preventDefault();
 
     // When a post request is sent to the create url, we'll add a new record to the database.
-    const newPerson = { ...form };
+    const newBusiness = { ...form };
 
     await fetch("http://localhost:3000/record/add", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify(newPerson),
+      body: JSON.stringify(newBusiness),
     }).catch((error) => {
       window.alert(error);
       return;
     });
 
-    setForm({ name: "", address: "", category: "", business_details: "" });
+    setForm({
+      name: "",
+      address: "",
+      category: "",
+      business_details: "",
+    });
     navigate("/");
   }
 
@@ -88,7 +93,7 @@ export default function Create() {
         <div className="form-group">
           <input
             type="submit"
-            value="Create person"
+            value="Add a business"
             className="btn btn-primary"
           />
         </div>
